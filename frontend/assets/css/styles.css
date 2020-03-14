@@ -18,6 +18,11 @@ body {
     border-radius: 20px;
     margin: 15px auto 15px auto;
     padding: 10px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    color: black;
+    cursor: pointer;
 }
 
 .title {
@@ -33,5 +38,34 @@ body {
 .when {
     color: gray;
     text-align: center;
-    margin: 10px auto 5px auto;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+.add {
+    background: transparent;
+    width: 600px;
+    height: 200px;
+    line-height: 200px;
+    border: 1px solid black;
+    border-radius: 20px;
+    margin: 15px auto 15px auto;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    color: black;
+    cursor: pointer;
+}
+
+.add span {
+    text-align: center;
+}
+
+.addIcon {
+    width: 60px;
+    height: 60px;
+    margin: 0px auto 0px auto;
 }
