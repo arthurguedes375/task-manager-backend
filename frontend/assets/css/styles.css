@@ -1,0 +1,37 @@
+body {
+    background-color: rgb(95, 11, 151);
+}
+
+
+.container {
+    width: 800px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    margin: 100px auto 0px auto;
+}
+
+.task {
+    background-color: #fff;
+    width: 600px;
+    height: 200px;
+    border-radius: 20px;
+    margin: 15px auto 15px auto;
+    padding: 10px;
+}
+
+.title {
+    text-align: center;
+}
+
+.description {
+    text-align: center;
+    margin-top: 10px;
+    word-wrap: break-word;
+}
+
+.when {
+    color: gray;
+    text-align: center;
+    margin: 10px auto 5px auto;
+}
