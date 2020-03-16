@@ -1,0 +1,26 @@
+{
+    "name": "arthurguedes375/taskmanager",
+    "description": "Task Manager",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Arthur Guedes",
+            "email": "arthurguedes375@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "autoload": {
+        "psr-4": {
+            "Source\\": "backend/source/"
+        },
+        "files": [
+            "backend/source/config/Connect.php",
+            "backend/source/config/config.php"
+        ]
+    },
+    "require": {
+        "coffeecode/router": "^1.0",
+        "ext-pdo": "*"
+    }
+}

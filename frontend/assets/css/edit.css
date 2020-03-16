@@ -1,0 +1,13 @@
+body {
+    background-color: rgb(95, 11, 151);
+}
+
+.container {
+    width: 500px;
+    height: 450px;
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+    margin-top: 200px;
+    color: white;
+}

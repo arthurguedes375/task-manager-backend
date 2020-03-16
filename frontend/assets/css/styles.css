@@ -69,3 +69,7 @@ a:hover {
     height: 60px;
     margin: 0px auto 0px auto;
 }
+
+.modal-inputs-edit {
+    margin-bottom: 15px;
+}
