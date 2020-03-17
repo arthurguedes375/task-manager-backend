@@ -20,7 +20,8 @@
         ]
     },
     "require": {
-        "coffeecode/router": "^1.0",
-        "ext-pdo": "*"
+        "coffeecode/router": "1.0.7",
+        "ext-pdo": "*",
+      "ext-json": "*"
     }
 }

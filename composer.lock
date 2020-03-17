@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "aceb34f8fe8312ce00ce7628da1ae3ac",
+    "content-hash": "da48c0f946b4f00eb8c6159026603828",
     "packages": [
         {
             "name": "coffeecode/router",
@@ -58,6 +58,8 @@
     "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
-    "platform": [],
+    "platform": {
+        "ext-pdo": "*"
+    },
     "platform-dev": []
 }

@@ -46,7 +46,7 @@ class Connect
     /**
      * @var
      */
-    public $fail;
+    public static $fail;
 
     /**
      * @var PDOStatement
@@ -69,9 +69,9 @@ class Connect
 
 
     /**
-     * @return bool|PDOStatement |false
+     * @return bool|PDO|false
      */
-    public function getInstance ()
+    public static function getInstance ()
     {
         if (empty(self::$db)) {
             try {
@@ -79,6 +79,7 @@ class Connect
                 self::$db = new PDO($dsn, self::$username, self::$password, self::$options);
                 return self::$db;
             }catch (PDOException $exception) {
+                self::$fail = $exception;
                 return false;
             }
         }else {
