@@ -14,4 +14,4 @@
 - Make edit, delete, read routes
 - improve readme.md xD
 
-<img src="readme/Modal%20Example.png" width="400" height="600">
+<img src="readme/Modal%20Example.png" width="800" height="600">
