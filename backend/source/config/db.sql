@@ -8,12 +8,14 @@ CREATE TABLE task(
 
 id int not null auto_increment,
 task varchar(50) not null,
-description varchar(168) not null,
-twhen date not null,
+tdescription varchar(168) not null,
+tdate date not null,
 created_at timestamp not null default current_timestamp(),
 updated_at timestamp not null default current_timestamp() on update current_timestamp(),
 primary key(id)
 
 )DEFAULT CHARSET = utf8;
+
+truncate task;
 
 SELECT * FROM task;
