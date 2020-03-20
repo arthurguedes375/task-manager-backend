@@ -63,7 +63,7 @@ class Task
 
         try {
             $db = $this->db;
-            $st = $db->prepare("SELECT task, tdescription, tdate FROM task WHERE id = :id");
+            $st = $db->prepare("SELECT id, task, tdescription, tdate FROM task WHERE id = :id");
             $st->bindValue(":id", $id, PDO::PARAM_INT);
             $st->execute();
             if ($st->rowCount() > 0) {
@@ -78,12 +78,12 @@ class Task
         }
     }
 
-    public function selectAllTasks ( )
+    public function selectAllTasks ()
     {
 
         try {
             $db = $this->db;
-            $st = $db->prepare("SELECT task, tdescription, tdate FROM task");
+            $st = $db->prepare("SELECT id, task, tdescription, tdate FROM task");
             $st->execute();
             if ($st->rowCount() > 0) {
                 return json_encode($st->fetchAll());
@@ -115,14 +115,14 @@ class Task
             $st->bindValue(":date", $date, PDO::PARAM_STR);
             $result = $st->execute();
             if ($result) {
-                return true;
+                return $this->selectById($result);
             }else {
                 return false;
             }
 
         }catch (PDOException $exception) {
             $this->fail = $exception;
-            return false;
+            return $exception;
         }
 
     }
