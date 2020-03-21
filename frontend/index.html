@@ -10,79 +10,58 @@
 </head>
 <body>
     
-    <div class="container">
+    <div class="container" id="tasks_container">
 
-        <a>
-            <div class="add" title="Add new Task">
+        <a data-toggle="modal" data-target="#addTaskModal" id="btn_add_task"> 
+            <div class="add" title="Add new Task" id="btn_add_task">
                 <span><img src="assets/img/add.svg" class="addIcon" alt=""></span>
             </div>
         </a>
 
-        <a href="pages/edit.html?id=1">
-            <div class="task" title="Fazer compras">
-                <span class="title"><h1>Fazer compras</h1></span>
-                <p class="description">Fazer compras no mercado do isaddsa aqui perto e mesmo assim eu quero continuar escrevendo para tentar aumentar meu texto e para isso eu vou escrever sem sentido nenhum</p>
-                <span class="date">13-03-20</span>
-            </div>
-        </a>
-        
-
-        <div class="task">
-            <span class="title"></span>
-            <p class="description"></p>
-            <span class="date"></span>
-        </div>
-
-        <div class="task">
-            <span class="title"></span>
-            <p class="description"></p>
-            <span class="date"></span>
-        </div>
-        
-        
-
-        <!-- Modal -->
-        <!-- <div class="modal fade" id="addTaskModal" tabindex="-1" role="dialog" aria-labelledby="addTaskModal" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                        <div class="modal-header">
-                                <h5 class="modal-title">Edit Task</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                            </div>
-                    <div class="modal-body">
-                        <div class="container-fluid">
-                            <div class="modal-inputs-edit">
-                                <h6>Task</h6>
-                                <input type="text" class="form-control">
-                            </div>
-                            <div class="modal-inputs-edit">
-                                <div class="form-group">
-                                  <label for="description">Task Description</label>
-                                  <textarea class="form-control" name="description" id="description" rows="7"></textarea>
-                                </div>
-                            </div>
-                            <div class="modal-inputs-edit">
-                                <h6>Date</h6>
-                                <input type="date" class="form-control">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" id="dismisAdd" class="btn btn-secondary" data-dismiss="modal">Dismis</button>
-                        <button type="button" id="saveAdd" class="btn btn-primary">Save</button>
-                    </div>
-                </div>
-            </div>
-        </div> -->
-
-
-
     </div>
 
+  
+  <!-- Modal -->
+  <div class="modal fade" id="addTaskModal" tabindex="-1" role="dialog" aria-labelledby="addTaskModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addTaskModalLabel">Add new Task</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form id="task_form" method="POST">
+                <div class="alert alert-danger d-none" id="message_box">
+                </div>
+                <div class="form-group">
+                  <label for="task_title">Task</label>
+                  <input type="text" name="task_title" class="form-control" id="task_title" placeholder="Enter task...">
+                  <span class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                  <label for="task_body">Task Description</label>
+                  <textarea class="form-control" id="task_description" name="task_description" rows="3" placeholder="Enter description..."></textarea>
+                  <span class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label for="task_date">Date</label>
+                    <input type="date" name="task_date" class="form-control" id="task_date" placeholder="dd/mm/yyyy">
+                    <span class="text-danger"></span>
+                  </div>
+              </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="btn_save_task">Create</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
-    <script src="assets/lib/jquery/jquery-3.4.1.min.js"></script>    
+    <script src="assets/lib/jquery/jquery-3.4.1.min.js"></script> 
+    <script src="assets/lib/bootstrap/js/bootstrap.min.js"></script> 
     <script src="assets/js/scripts.js"></script>
 </body>
 </html>
