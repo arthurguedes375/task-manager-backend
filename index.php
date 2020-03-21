@@ -2,7 +2,7 @@
 
 require __DIR__ . "/vendor/autoload.php";
 
-/*header("Content-Type: application/json");*/
+header("Content-Type: application/json");
 
 $router = new \CoffeeCode\Router\Router(URL_BASE);
 
@@ -33,6 +33,7 @@ $router->post("/create", function () {
         }
     }else {
         http_response_code(201);
+        echo $createTask;
     }
 
 });
