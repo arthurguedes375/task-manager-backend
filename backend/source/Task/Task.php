@@ -127,6 +127,34 @@ class Task
 
     }
 
+    public function deleteTask ( $id )
+    {
+        $id = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
+
+        if ($this->selectById($id)) {
+            try {
+                $db = $this->db;
+                $st = $db->prepare("DELETE FROM task WHERE id = :id");
+                $st->bindValue(":id", $id, PDO::PARAM_INT);
+                $qry = $st->execute();
+                if ($qry) {
+                    return true;
+                }else {
+                    $this->fail = "error";
+                    return false;
+                }
+            }catch (PDOException $exception) {
+                $this->fail = $exception;
+                return false;
+            }
+        }else {
+            $this->fail = "idNotFound";
+            return false;
+        }
+
+
+    }
+
 
 
 }

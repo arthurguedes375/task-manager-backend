@@ -2,10 +2,15 @@ const base_url = 'https://localhost/taskmanager/tasks/';
 
 //Return task data
 
+let currentTaskId = null;
+
 function getTask(task) {
     $('#addTaskModalLabel').html('Edit Task');
     $('#btn_save_task').html('Save Changes');
+    $('#btn_delete_task').show();
     $('#addTaskModal').modal('show');
+
+    currentTaskId = task.id;
 
     $.ajax({
         type: 'GET',
@@ -22,7 +27,12 @@ function getTask(task) {
             updateTask(response[0].id);
         },
         error: function () {
-            alert('Não foi possível carregar os dados da tarefa');
+            Swal.fire({
+                icon: 'error',
+                title: 'Erro ao Buscar Dados da Tarefa!',
+                text: "Verifique a sua conexão com a internet, se estiver tudo ok, provavelmente este erro está acontecendo por conta que você ainda não cadastrou nenhuma tarefa!",
+                footer: 'Tente adicionar novas Tarefas!'
+            })
         }
     });
 }
@@ -72,13 +82,19 @@ function addTask() {
             url: base_url + 'create',
             data: $(this).serialize(),
             success: function (response) {
-                var response = JSON.parse(response);
 
                 var html = '<div class="task" onclick="getTask(this)" id="' + response[0].id + '"><span class="title"><h1 id="task_title">' + response[0].task + '</h1></span><p class="description" id="task_description">' + response[0].tdescription + '</p><span class="date" id="task_date">' + response[0].tdate + '</span></div>';
 
-                $('#btn_add_task').append(html); //Adicionando tarefa na tela
+                $('#tasks_container').append(html); //Adicionando tarefa na tela
 
                 $('#addTaskModal').modal('hide'); //Fechando modal
+
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Your task has been saved',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
 
             },
             error: function (response) {
@@ -93,9 +109,30 @@ function addTask() {
     });
 }
 
+// Delete Task
+function deleteTask() {
+    $.ajax({
+        type: 'DELETE',
+        url: base_url + 'delete/' + currentTaskId,
+        error: function (response) {
+            var response = JSON.parse(response.responseText);
+            $('#message_box').removeClass('d-none').html(response.error);
+        }
+    });
+
+    $(`#${currentTaskId}`).hide();
+    Swal.fire({
+        icon: 'success',
+        title: 'Your task has been deleted',
+        showConfirmButton: false,
+        timer: 2500
+    })
+}
+
 function resetModal() {
     $('#addTaskModalLabel').html('Create Task');
     $('#btn_save_task').html('Create');
+    $('#btn_delete_task').hide();
     $('input#task_title').val('');
     $('textarea#task_description').val('');
     $('input#task_date').val('');
@@ -110,11 +147,14 @@ $(document).ready(function () {
         type: 'GET',
         url: base_url,
         success: function (response) {
-            // var response = JSON.parse(response);
-            console.log(response);
 
             if (response.success === false) {
-                alert('Erro, não foi possível carregar as tarefas');
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Erro ao Buscar Dados!',
+                    text: "Verifique a sua conexão com a internet, se estiver tudo ok, provavelmente este erro está acontecendo por conta que você ainda não cadastrou nenhuma tarefa!",
+                    footer: 'Tente adicionar novas Tarefas!'
+                })
             } else {
                 $.each(response, function (key, task) {
                     var html = '<div class="task" onclick="getTask(this)" id="' + task.id + '"><span class="title"><h1 id="task_title">' + task.task + '</h1></span><p class="description" id="task_description">' + task.tdescription + '</p><span class="date" id="task_date">' + task.tdate + '</span></div>';
@@ -126,10 +166,16 @@ $(document).ready(function () {
     });
 
     //Ao clicar no botão de adicionar tarefa, chama a função
-
     $('#btn_add_task').on('click', function () {
         addTask();
     });
+
+    //Ao clicar no botão de deletar tarefa, chama a função
+    $('#btn_delete_task').on('click', function () {
+        deleteTask();
+    });
+
+
 
     //Sempre que o modal for escondido ou fechado, remove os eventos
     //impedindo que a requisição seja feita mais de uma vez

@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Task Manager</title>
   <link rel="stylesheet" href="assets/lib/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="sweetalert2.min.css">
   <link rel="stylesheet" href="assets/css/boot.css">
   <link rel="stylesheet" href="assets/css/styles.css">
 </head>
@@ -57,7 +58,9 @@
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal" id="btn_delete_task"
+            style="display: none;">Delete Task</button>
           <button type="button" class="btn btn-primary" data-dismiss="modal" id="btn_save_task">Create</button>
         </div>
       </div>
@@ -66,6 +69,7 @@
 
   <script src="assets/lib/jquery/jquery-3.4.1.min.js"></script>
   <script src="assets/lib/bootstrap/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
   <script src="assets/js/scripts.js"></script>
 </body>
 

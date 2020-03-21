@@ -26,7 +26,6 @@ $router->get("/", function(){
     if($tasks){
         echo($tasks);
     } else {
-        $response = array();
         $response['success'] = false;
         echo json_encode($response);
     }
@@ -41,7 +40,6 @@ $router->get("/{id}", function($request){
     if($task){
         echo($task);
     } else {
-        $response = array();
         $response['success'] = false;
         echo json_encode($response);
     }
@@ -60,7 +58,6 @@ $router->post("/create", function () {
             http_response_code(500);
         }else {
             http_response_code(400);
-            $response = array();
             $response['error'] = 'Preencha todos os campos!!!';
             echo json_encode($response);
         }
@@ -78,8 +75,8 @@ $router->post("/create", function () {
 
 });
 
-    //Update Task
-    $router->put("/update/{id}", function($request){
+//Update Task
+$router->put("/update/{id}", function($request){
     $paramTask = (!empty($request["task_title"] )) ? $request["task_title"] : null;
     $paramTaskDescription = (!empty($request["task_description"] )) ? $request["task_description"] : null;
     $paramTaskDate = (!empty($request["task_date"] )) ? $request["task_date"] : null;
@@ -91,7 +88,6 @@ $router->post("/create", function () {
             http_response_code(500);
         }else {
             http_response_code(400);
-            $response = array();
             $response['error'] = 'Preencha todos os campos!!!';
             echo json_encode($response);
         }
@@ -101,6 +97,29 @@ $router->post("/create", function () {
         echo($createdTask);
     }
 });
+
+
+// Delete Task
+$router->delete("/delete/{id}", function ($props) {
+
+    $id = (!empty($props["id"])) ? $props["id"] : null;
+    $deleteTask = $GLOBALS["task"]->deleteTask($props["id"]);
+
+    if ($deleteTask === false || $id == null) {
+        if (\Source\config\Connect::$fail) {
+            http_response_code(500);
+        }else {
+            http_response_code(400);
+            $response['error'] = 'Preencha todos os campos!!!';
+            echo json_encode($response);
+        }
+    }else {
+        http_response_code(200);
+    }
+
+
+});
+
 
 
 $router->dispatch();
