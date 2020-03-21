@@ -29,6 +29,29 @@ class Task
         $this->db = Connect::getInstance();
     }
 
+    // Verify if already exists a equal task on db
+    private function taskDuplicated ( $task, $description, $date )
+    {
+        try {
+            $db = $this->db;
+            $st = $db->prepare("SELECT * FROM task WHERE task = :task &&
+                         tdescription = :description && tdate = :date");
+            $st->bindValue(":task", $task, PDO::PARAM_STR);
+            $st->bindValue(":description", $description, PDO::PARAM_STR);
+            $st->bindValue(":date", $date, PDO::PARAM_STR);
+            $st->execute();
+            if ($st->rowCount() > 0) {
+                return true;
+            }else {
+                return false;
+            }
+
+        }catch (PDOException $exception) {
+            $this->fail = $exception;
+            return null;
+        }
+    }
+
     /**
      * @param $task
      * @param $description
@@ -41,18 +64,23 @@ class Task
         $description = filter_var($description, FILTER_SANITIZE_SPECIAL_CHARS);
         $date = filter_var($date, FILTER_SANITIZE_SPECIAL_CHARS);
 
-        try {
-            $db = $this->db;
-            $st = $db->prepare("INSERT INTO task (task, tdescription, tdate) VALUES (:task, :description, :date)");
-            $st->bindValue(":task", $task, PDO::PARAM_STR);
-            $st->bindValue(":description", $description, PDO::PARAM_STR);
-            $st->bindValue(":date", $date, PDO::PARAM_STR);
-            $st->execute();
-            $result = ["id" => $db->lastInsertId()];
-            return json_encode($result);
+        if (!$this->taskDuplicated($task, $description, $date)) {
+            try {
+                $db = $this->db;
+                $st = $db->prepare("INSERT INTO task (task, tdescription, tdate) VALUES (:task, :description, :date)");
+                $st->bindValue(":task", $task, PDO::PARAM_STR);
+                $st->bindValue(":description", $description, PDO::PARAM_STR);
+                $st->bindValue(":date", $date, PDO::PARAM_STR);
+                $st->execute();
+                $result = ["id" => $db->lastInsertId()];
+                return json_encode($result);
 
-        } catch (PDOException $exception) {
-            $this->fail = $exception;
+            } catch (PDOException $exception) {
+                $this->fail = $exception;
+                return false;
+            }
+        }else {
+            $this->fail = "duplicated";
             return false;
         }
     }

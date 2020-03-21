@@ -99,7 +99,13 @@ function addTask() {
             },
             error: function (response) {
                 var response = JSON.parse(response.responseText);
-                $('#message_box').removeClass('d-none').html(response.error);
+                if (response.error === "Task duplicated!") {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Já existe esta Tarefa Cadastrada no nosso Banco de Dados!',
+                        showConfirmButton: true,
+                    })
+                }
             }
         });
     });
