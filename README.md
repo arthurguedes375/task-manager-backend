@@ -10,5 +10,5 @@
 
 
 ## TODO LIST
-- Turn responsivo
+- Turn responsive
 - improve readme.md xD
