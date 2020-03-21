@@ -10,6 +10,5 @@
 
 
 ## TODO LIST
+- Turn responsivo
 - improve readme.md xD
-
-<img src="readme/Modal%20Example.png" width="400" height="600">
