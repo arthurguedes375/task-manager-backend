@@ -113,11 +113,8 @@ class Task
             $db = $this->db;
             $st = $db->prepare("SELECT id, task, tdescription, tdate FROM task ORDER BY tdate ");
             $st->execute();
-            if ($st->rowCount() > 0) {
-                return json_encode($st->fetchAll());
-            }else {
-                return false;
-            }
+            return json_encode($st->fetchAll());
+
 
         }catch (PDOException $exception) {
             $this->fail = $exception;

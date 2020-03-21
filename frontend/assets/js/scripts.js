@@ -106,6 +106,8 @@ function addTask() {
                         showConfirmButton: true,
                     })
                 }
+                console.log(response.error);
+
             }
         });
     });
@@ -131,7 +133,7 @@ function deleteTask() {
         icon: 'success',
         title: 'Your task has been deleted',
         showConfirmButton: false,
-        timer: 2500
+        timer: 1000
     })
 }
 
