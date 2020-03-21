@@ -22,7 +22,7 @@ function getTask(task){
             updateTask(response[0].id);
         },
         error:function(){
-
+            alert('Não foi possível carregar os dados da tarefa');
         }
     });
 }
@@ -44,6 +44,39 @@ function updateTask(id){
                 $('div#'+response[0].id+'.task').find('#task_title').html(response[0].task);
                 $('div#'+response[0].id+'.task').find('#task_description').html(response[0].tdescription);
                 $('div#'+response[0].id+'.task').find('#task_date').html(response[0].tdate);
+
+                $('#addTaskModal').modal('hide'); //Fechando modal
+
+            },
+            error:function(response){
+                var response = JSON.parse(response.responseText);
+                $('#message_box').removeClass('d-none').html(response.error);
+            }
+        });
+    });
+
+    $('#btn_save_task').on('click', function(){
+        $('#task_form').submit();
+    });
+}
+
+function addTask(){
+    //Evento disparado quando o formulário for submetido
+
+    $('#task_form').on('submit', function(e){
+
+        e.preventDefault();
+
+        $.ajax({
+            type: 'POST',
+            url: base_url+'create',
+            data: $(this).serialize(),
+            success:function(response){
+                var response = JSON.parse(response);
+
+                var html = '<div class="task" onclick="getTask(this)" id="'+response[0].id+'"><span class="title"><h1 id="task_title">'+response[0].task+'</h1></span><p class="description" id="task_description">'+response[0].tdescription+'</p><span class="date" id="task_date">'+response[0].tdate+'</span></div>';
+
+                $('#tasks_container').append(html); //Adicionando tarefa na tela
 
                 $('#addTaskModal').modal('hide'); //Fechando modal
 
@@ -91,13 +124,10 @@ $(document).ready(function(){
         }
     });
 
-    //Sempre que o modal aparecer, adiciona o evento no botão para submeter o formulário
+    //Ao clicar no botão de adicionar tarefa, chama a função
 
-    $('#addTaskModal').on('show.bs.modal', function(){
-
-        $('#btn_save_task').on('click', function(){
-            $('#task_form').submit();
-        });
+    $('#btn_add_task').on('click', function(){
+        addTask();
     });
 
     //Sempre que o modal for escondido ou fechado, remove os eventos
@@ -106,36 +136,7 @@ $(document).ready(function(){
     $('#addTaskModal').on('hidden.bs.modal',function(){
         resetModal();
         $('#btn_save_task').unbind('click');
+        $('#form_task').unbind('submit');
     });
-
-
-    //Evento disparado quando o formulário for submetido
-
-    $('#task_form').on('submit', function(e){
-
-        e.preventDefault();
-
-        $.ajax({
-            type: 'POST',
-            url: base_url+'create',
-            data: $(this).serialize(),
-            success:function(response){
-                var response = JSON.parse(response);
-
-                var html = '<div class="task" id="'+response[0].id+'"><span class="title"><h1 id="task_title">'+response[0].task+'</h1></span><p class="description" id="task_description">'+response[0].tdescription+'</p><span class="date" id="task_date">'+response[0].tdate+'</span></div>';
-
-                $('#tasks_container').append(html); //Adicionando tarefa na tela
-
-                $('#addTaskModal').modal('hide'); //Fechando modal
-
-            },
-            error:function(response){
-                var response = JSON.parse(response.responseText);
-                $('#message_box').removeClass('d-none').html(response.error);
-            }
-        });
-    });
-
-    
 
 });
