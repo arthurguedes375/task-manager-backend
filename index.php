@@ -56,7 +56,7 @@ $router->post("/create", function () {
     if ($createdTask === false || $paramTask == null || $paramTaskDescription == null || $paramTaskDate == null) {
         if (\Source\config\Connect::$fail) {
             http_response_code(500);
-        }else if ($GLOBALS["task"]->fail == "duplicated") {
+        }else if ($createdTask === false && $GLOBALS["task"]->fail == "duplicated") {
             http_response_code(406);
             $response['error'] = 'Task duplicated!';
             echo json_encode($response);

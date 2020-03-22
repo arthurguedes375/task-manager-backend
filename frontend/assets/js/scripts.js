@@ -30,8 +30,8 @@ function getTask(task) {
             Swal.fire({
                 icon: 'error',
                 title: 'Erro ao Buscar Dados da Tarefa!',
-                text: "Verifique a sua conexão com a internet, se estiver tudo ok, provavelmente este erro está acontecendo por conta que você ainda não cadastrou nenhuma tarefa!",
-                footer: 'Tente adicionar novas Tarefas!'
+                text: "Verifique a sua conexão com a internet! Se estiver tudo ok, Tente mais tarde!",
+                footer: 'Nenhuma alteração ou exclusão será salva!'
             })
         }
     });
@@ -105,6 +105,12 @@ function addTask() {
                         title: 'Já existe esta Tarefa Cadastrada no nosso Banco de Dados!',
                         showConfirmButton: true,
                     })
+                } else if (response.error === "Preencha todos os campos!!!") {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Preencha todos os campos!!!',
+                        showConfirmButton: true,
+                    })
                 }
                 console.log(response.error);
 
@@ -119,21 +125,18 @@ function addTask() {
 
 // Delete Task
 function deleteTask() {
+
     $.ajax({
         type: 'DELETE',
         url: base_url + 'delete/' + currentTaskId,
-        error: function (response) {
-            var response = JSON.parse(response.responseText);
-            $('#message_box').removeClass('d-none').html(response.error);
-        }
     });
 
     $(`#${currentTaskId}`).hide();
     Swal.fire({
         icon: 'success',
-        title: 'Your task has been deleted',
+        title: 'A sua tarefa foi Deletada com Sucesso!',
         showConfirmButton: false,
-        timer: 1000
+        timer: 2000
     })
 }
 
@@ -160,9 +163,10 @@ $(document).ready(function () {
                 Swal.fire({
                     icon: 'error',
                     title: 'Erro ao Buscar Dados!',
-                    text: "Verifique a sua conexão com a internet, se estiver tudo ok, provavelmente este erro está acontecendo por conta que você ainda não cadastrou nenhuma tarefa!",
-                    footer: 'Tente adicionar novas Tarefas!'
+                    text: "Verifique a sua conexão com a internet! Se estiver tudo ok, Tente mais tarde!",
+                    footer: 'Nenhuma alteração ou exclusão será salva!'
                 })
+
             } else {
                 $.each(response, function (key, task) {
                     var html = '<div class="task" onclick="getTask(this)" id="' + task.id + '"><span class="title"><h1 id="task_title">' + task.task + '</h1></span><p class="description" id="task_description">' + task.tdescription + '</p><span class="date" id="task_date">' + task.tdate + '</span></div>';
