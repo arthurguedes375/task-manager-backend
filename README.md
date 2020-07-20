@@ -40,5 +40,5 @@
 
 ---
 <p align="center">
-  Made with :heart: by <strong>Arthur Guedes</strong>
+  Made with :heart: by <strong>Arthur Guedes & Jefferson</strong>
 </p>
