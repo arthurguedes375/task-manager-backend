@@ -12,16 +12,16 @@
     "minimum-stability": "stable",
     "autoload": {
         "psr-4": {
-            "Source\\": "backend/source/"
+            "Source\\": "source/"
         },
         "files": [
-            "backend/source/config/Connect.php",
-            "backend/source/config/config.php"
+            "source/config/Connect.php",
+            "source/config/config.php"
         ]
     },
     "require": {
         "coffeecode/router": "1.0.7",
         "ext-pdo": "*",
-      "ext-json": "*"
+        "ext-json": "*"
     }
 }

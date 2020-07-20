@@ -4,9 +4,14 @@
 namespace Source\config;
 
 
+
+require __DIR__ . '/../../vendor/autoload.php';
+
 use PDO;
 use PDOException;
 use PDOStatement;
+
+
 
 
 /**
@@ -20,28 +25,23 @@ class Connect
     /**
      * @var string
      */
-    private static $host = "localhost";
+    private static $host = DATABASE["host"];
     /**
      * @var string
      */
-    private static $dbname = "taskmanager";
+    private static $dbname = DATABASE["dbname"];
     /**
      * @var string
      */
-    private static $username = "root";
+    private static $username = DATABASE["username"];
     /**
      * @var string
      */
-    private static $password = "";
+    private static $password = DATABASE["password"];
     /**
      * @var array
      */
-    private static $options = [
-        PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8",
-        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-        PDO::ATTR_CASE => PDO::CASE_NATURAL
-    ];
+    private static $options = DATABASE["options"];
 
     /**
      * @var

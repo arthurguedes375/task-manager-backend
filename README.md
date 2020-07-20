@@ -32,9 +32,8 @@
 ### :artificial_satellite: Getting Started
 - Clone this project(arthurguedes375/task-manager-backend)
 - ``` composer update ```
-- Import backend/source/config/db.sql from your db
-- Edit backend/source/config/config.php set "URL_BASE" to your backend url!
-- Edit backend/source/config/Connect.php set $host, $dbname, $username, $password to your database config
+- Import backend/source/config/db.sql to your db
+- Edit backend/source/config/config.php set "URL_BASE" to your backend url AND set your DATABASE configs!
 
 
 

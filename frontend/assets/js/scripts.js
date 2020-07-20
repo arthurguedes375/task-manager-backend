@@ -1,4 +1,4 @@
-const base_url = 'https://localhost/taskmanager/tasks/';
+const base_url = 'https://localhost/task-manager-backend/tasks/';
 
 //Return task data
 
